@@ -60,6 +60,7 @@ A web-based application to streamline blood bank management processes, allowing 
    )
 
 4. streamlit
-   ``` bash run app/main.py
+   ``` bash
+   run newapp.py
 
 
