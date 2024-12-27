@@ -48,14 +48,18 @@ A web-based application to streamline blood bank management processes, allowing 
 2. Install Dependencies
    ```pip install -r requirements.txt```
 
-3. Set up the database:
-Import the SQL scripts in the database/ folder into your MySQL instance. 
-or Change as per Your Connection
-```
- pymysql.connect(
-        host = "hostname" , 
-        user = "username",
-        password = "password",
-        database = "db_name"
-    )```
+
+3. Set up the database:  
+   Import the SQL scripts in the `database/` folder into your MySQL instance. Then, update the connection details in the application file. Replace the placeholders with your MySQL credentials:  
+   ```python
+   pymysql.connect(
+       host="hostname",
+       user="username",
+       password="password",
+       database="db_name"
+   )
+
+4. streamlit
+   ``` bash run app/main.py
+
 
