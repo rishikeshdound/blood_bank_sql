@@ -59,7 +59,7 @@ or Change as per Your Connection
         password = "password",
         database = "db_name"
     )```
-4.   Run the application:
+4. Run the application:
 
 ```bash
 streamlit run app/main.py
