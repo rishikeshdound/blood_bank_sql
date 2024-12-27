@@ -62,4 +62,4 @@ or Change as per Your Connection
 4. Run the application:
 
 ```bash
-streamlit run app/main.py```
+streamlit run app/main.py
