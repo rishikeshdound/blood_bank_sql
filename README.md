@@ -50,7 +50,7 @@ A web-based application to streamline blood bank management processes, allowing 
 
 3. Set up the database:
 Import the SQL scripts in the database/ folder into your MySQL instance. 
-Change as per Your Connection
+or Change as per Your Connection
 ```def get_db_connection():
 
     return pymysql.connect(
@@ -58,7 +58,7 @@ Change as per Your Connection
         user = "username",
         password = "password",
         database = "db_name"
-    )
+    )```
 4.   Run the application:
 
 ```bash
