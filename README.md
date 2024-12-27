@@ -59,7 +59,3 @@ or Change as per Your Connection
         database = "db_name"
     )```
 
-4. Run the application:
-
-```bash
-streamlit run app/main.py
