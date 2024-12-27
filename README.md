@@ -21,8 +21,9 @@ A web-based application to streamline blood bank management processes, allowing 
 
 ---
 
-## 📂 Project Structure
+##  Project Structure
 - `newapp.py/`: Contains the core Streamlit application files.
+- `authentication.py/`:Implemented secure login and registration systems for multiple user role
 - `database_conn.py/`: Includes SQL scripts for database creation and data management.
 - `home.py/`: Includes Function Callings based on Roles and respective Functionalities. 
 - `management.py/`: Includes Functionalities and queries .
@@ -30,16 +31,36 @@ A web-based application to streamline blood bank management processes, allowing 
 
 ---
 
-## 🛠️ Technology Stack
+##  Technology Stack
 - **Frontend:** [Streamlit](https://streamlit.io/)
 - **Backend:** Python
 - **Database:** pymysql
 
 ---
 
-## 📦 Installation
+##  Installation
 
 1. Clone the repository:
    ```bash
    git clone https://github.com/rishikeshdound/blood_bank_sql.git
    cd blood_bank_sql
+
+2. Install Dependencies
+   ```pip install -r requirements.txt```
+
+3.Set up the database:
+Import the SQL scripts in the database/ folder into your MySQL instance.
+or 
+Change as per Your Connection
+```def get_db_connection():
+
+    return pymysql.connect(
+        host = "hostname" , 
+        user = "username",
+        password = "password",
+        database = "db_name"
+    )```
+4.   Run the application:
+
+```bash
+streamlit run app/main.py
