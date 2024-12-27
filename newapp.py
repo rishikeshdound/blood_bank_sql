@@ -66,8 +66,7 @@ def login_page():
             if "successful" in result:
                 st.success(result)
                     # Optional: Automatically switch to login
-                st.balloons()
-                #    redirecting to loging page
+                
             else:
                 st.error(result)
 

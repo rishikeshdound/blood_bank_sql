@@ -24,6 +24,7 @@ def fetch_profile(username):
     return profile
 
 # profile interface st
+# common for all 
 
 def view_profile(username):
     
@@ -103,7 +104,7 @@ def fetch_donation_history(user_id):
     """Fetch donation history for a specific user"""
     conn = get_db_connection()
     cursor = conn.cursor()
-
+# based on or username data is being fetched
     query = '''
         SELECT d.donation_date, d.blood_group, d.units_donated, c.name AS campaign_name
         FROM donations d
@@ -145,17 +146,67 @@ def view_campaigns():
     conn.close()
 
 
+# 
 
 
 
-def upcoming_campaigns():
-    st.subheader("Upcoming Donation Campaigns")
-    
-    # Connect to the database
+# for marking intrest 
+
+
+
+
+def mark_campaign_interest(username, campaign_id):
+    """Mark donor's interest in a campaign."""
     conn = get_db_connection()
     cursor = conn.cursor()
 
-    # Fetch all upcoming campaigns
+    # Get user_id based on the username
+    cursor.execute("SELECT user_id FROM users WHERE username = %s", (username,))
+    user = cursor.fetchone()
+    
+    if not user:
+        st.error("User not found.")
+        return
+
+    user_id = user[0]
+
+    # Check if the user already marked interest
+    cursor.execute(
+        "SELECT * FROM campaign_interests WHERE user_id = %s AND campaign_id = %s",
+        (user_id, campaign_id),
+    )
+    interest_exists = cursor.fetchone()
+
+    if interest_exists:
+        st.warning("You have already shown interest in this campaign.")
+    else:
+        # Insert the interest into the campaign_interests table
+        cursor.execute(
+            "INSERT INTO campaign_interests (user_id, campaign_id) VALUES (%s, %s)",
+            (user_id, campaign_id),
+        )
+        conn.commit()
+        st.success(f"Successfully marked interest in campaign ID: {campaign_id}.")
+
+    conn.close()
+
+
+
+
+
+
+
+# 
+
+
+def upcoming_campaigns(username):
+    st.subheader("Upcoming Donation Campaigns")
+    
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    # fetch all upcoming campaigns 
     cursor.execute("SELECT * FROM campaigns WHERE date >= CURDATE() ORDER BY date ASC")
     campaigns = cursor.fetchall()
 
@@ -169,7 +220,7 @@ def upcoming_campaigns():
 
             if available_for_campaign:
                 # Save the donor's interest in the campaign
-                mark_campaign_interest(st.state.username, campaign[0])
+                mark_campaign_interest(username, campaign[0])
 
             st.text("-" * 40)
     else:
@@ -286,7 +337,7 @@ def view_donors():
 
 
 
-# for blood group ava 
+# for blood group aval or inventrory we can call 
 
 
 
@@ -294,7 +345,7 @@ def blood_available():
     """Check availability of blood groups"""
     st.subheader("Availability of Blood Groups")
     
-    # SQL query to get availability
+    
     query = '''
     SELECT blood_group, 
            SUM(units_donated) AS total_units, 
@@ -307,7 +358,7 @@ def blood_available():
     availability = cursor.fetchall()
     
     if availability:
-        # Display availability
+       
         st.write("Blood Group Availability")
         st.table(
             {
@@ -318,9 +369,6 @@ def blood_available():
         )
     else:
         st.info("No blood group availability data found.")
-
-
-
 
 
 
@@ -381,3 +429,55 @@ def delete_campaign(campaign_id):
 def edit_campaign(campaign_id):
     """Edit a campaign (functionality to be implemented)"""
     st.info(f"Edit functionality for Campaign ID {campaign_id} is under construction.")
+
+
+
+
+# for seeing recipient request  and approving 
+
+def manage_blood_requests():
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM blood_requests WHERE request_status = 'Pending'")
+    requests = cursor.fetchall()
+
+    if requests:
+        for request in requests:
+            st.text(f"Request ID: {request[0]}")
+            st.text(f"User ID: {request[1]}")
+            st.text(f"Blood Group: {request[2]}")
+            st.text(f"Units Required: {request[3]}")
+            st.text(f"Reason: {request[4]}")
+            st.text(f"Requested At: {request[6]}")
+
+            # Action buttons for admin
+            col1, col2 = st.columns(2)
+            with col1:
+                if st.button(f"Approve Request {request[0]}", key=f"approve_{request[0]}"):
+                    cursor.execute(
+                        "UPDATE blood_requests SET request_status = 'Approved' WHERE request_id = %s", 
+                        (request[0],)
+                    )
+                    conn.commit()
+                    st.success(f"Request ID {request[0]} approved.")
+
+            with col2:
+                if st.button(f"Reject Request {request[0]}", key=f"reject_{request[0]}"):
+                    cursor.execute(
+                        "UPDATE blood_requests SET request_status = 'Rejected' WHERE request_id = %s", 
+                        (request[0],)
+                    )
+                    conn.commit()
+                    st.error(f"Request ID {request[0]} rejected.")
+
+            st.text("-" * 40)
+    else:
+        st.info("No pending blood requests found.")
+
+    conn.close()
+
+
+# for inserting donations 
+

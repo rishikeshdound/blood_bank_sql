@@ -73,7 +73,7 @@ def donor_dashboard(username):
     elif choice == "Upcoming Campaigns":
         st.subheader("Upcoming Campaigns")
 
-        upcoming_campaigns()
+        upcoming_campaigns(username)
     # Logout
     if st.sidebar.button("Logout"):
         st.session_state.page = "login"

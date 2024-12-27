@@ -84,7 +84,7 @@ def setup_table():
     )
 
 
-
+# blood / request  db 
 
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS blood_requests (
@@ -100,7 +100,21 @@ def setup_table():
 ''')
 
 
+    cursor.execute(
+        '''
 
+CREATE TABLE IF NOT EXISTS campaign_interests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    campaign_id INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(user_id),
+    FOREIGN KEY (campaign_id) REFERENCES campaigns(campaign_id)
+)
+
+
+        '''
+    )
 
     conn.commit()
     conn.close()
@@ -110,21 +124,3 @@ def setup_table():
 
     # blood recipient db 
 
-
-#     cursor.execute( '''
-
-
-#     CREATE TABLE IF NOT EXISTS blood_requests (
-#     request_id INT AUTO_INCREMENT PRIMARY KEY,
-#     user_id INT NOT NULL,
-#     blood_group VARCHAR(5) NOT NULL,
-#     units_required INT NOT NULL,
-#     reason TEXT,
-#     request_status ENUM('Pending', 'Approved', 'Rejected') DEFAULT 'Pending',
-#     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-#     FOREIGN KEY (user_id) REFERENCES users(user_id)
-# )'''
-#                    )
-    
-#     conn.commit()
-#     conn.close()
