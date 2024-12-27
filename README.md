@@ -48,9 +48,8 @@ A web-based application to streamline blood bank management processes, allowing 
 2. Install Dependencies
    ```pip install -r requirements.txt```
 
-3.Set up the database:
-Import the SQL scripts in the database/ folder into your MySQL instance.
-or 
+3. Set up the database:
+Import the SQL scripts in the database/ folder into your MySQL instance. 
 Change as per Your Connection
 ```def get_db_connection():
 
@@ -59,7 +58,7 @@ Change as per Your Connection
         user = "username",
         password = "password",
         database = "db_name"
-    )```
+    )
 4.   Run the application:
 
 ```bash
