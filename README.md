@@ -1,10 +1,10 @@
 # Blood Bank Management System
 
-A web-based application to streamline blood bank management processes, allowing donors, recipients, and admins to interact efficiently. The system supports donor registration, blood requests, and upcoming campaigns, managed through a user-friendly interface.
+A web-based application to streamline blood bank management processes, allowing donors, recipients, and admins to interact efficiently. The system supports Donor registration, Blood Recipient registration and a Admin registration  managed through a user-friendly interface.
 
 ---
 
-## 🚀 Features
+##  Features
 
 ### 1. **Donor Functionalities**
 - **Register/Sign In:** Donors can register or log in to their accounts.
@@ -22,10 +22,10 @@ A web-based application to streamline blood bank management processes, allowing 
 ---
 
 ## 📂 Project Structure
-- `app/`: Contains the core Streamlit application files.
-- `database/`: Includes SQL scripts for database creation and data management.
-- `static/`: Houses static assets like images or styles.
-- `templates/`: Contains HTML templates for custom pages.
+- `newapp.py/`: Contains the core Streamlit application files.
+- `database_conn.py/`: Includes SQL scripts for database creation and data management.
+- `home.py/`: Includes Function Callings based on Roles and respective Functionalities. 
+- `management.py/`: Includes Functionalities and queries .
 - `README.md`: Documentation for the project.
 
 ---
@@ -33,8 +33,7 @@ A web-based application to streamline blood bank management processes, allowing 
 ## 🛠️ Technology Stack
 - **Frontend:** [Streamlit](https://streamlit.io/)
 - **Backend:** Python
-- **Database:** MySQL
-- **Deployment:** AWS EC2
+- **Database:** pymysql
 
 ---
 
